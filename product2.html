@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Web - Product Detail</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Coral+Pixels&family=Amarante&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="product_style.css">
+</head>
+<body>
+    <!-- 움직이는 거미들 -->
+<div class="moving-spiders">
+    <div class="spider spider1">
+        <img src="src/1.png" class="spider-frame1" alt="Spider">
+        <img src="src/2.png" class="spider-frame2" alt="Spider">
+    </div>
+    <div class="spider spider2">
+        <img src="src/1.png" class="spider-frame1" alt="Spider">
+        <img src="src/2.png" class="spider-frame2" alt="Spider">
+    </div>
+    <div class="spider spider3">
+        <img src="src/1.png" class="spider-frame1" alt="Spider">
+        <img src="src/2.png" class="spider-frame2" alt="Spider">
+    </div>
+</div>
+    <!-- 상단:  움직이는 quote -->
+    <div class="bottom-section">
+        <p class="quote">A web that captures light just before it disappears.</p>
+    </div>
+
+    <div class="container">
+<!-- 왼쪽: 메인 영상 -->
+<div class="main-image">
+    <video id="mainVideo" autoplay muted loop playsinline>
+        <source src="src/shine.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</div>
+
+        <!-- 오른쪽: 제품 정보 -->
+        <div class="product-info">
+            <div class="details">
+                <div class="detail-item">
+                    <span class="detail-label">ENVIRONMENT</span>
+                    <span class="detail-value">A lens that holds light</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">MADE WITH</span>
+                    <span class="detail-value">??</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">FOR</span>
+                    <span class="detail-value">One who is obssessed with light</span>
+                </div>
+            </div>
+
+            <!-- 썸네일 이미지들 -->
+    <div class="thumbnail-images">
+                <!-- 영상 썸네일 -->
+                <div class="thumbnail-video" onclick="changeMainMedia('src/shine.mp4')">
+                    <video muted loop playsinline>
+                        <source src="src/shine.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <img src="src/spidershine.png" alt="Thumbnail 2" onclick="changeMainMedia('src/spidershine.png')">
+                <img src="src/shineside.jpg" alt="Thumbnail 3" onclick="changeMainMedia('src/shineside.jpg')">
+                <img src="src/shinedet.jpg" alt="Thumbnail 4" onclick="changeMainMedia('src/shinedet.jpg')">
+            </div>
+        </div>
+    </div>
+
+    <!-- 뒤로가기 버튼 -->
+    <a href="index.html" class="back-button">← Back to Store</a>
+
+<script>
+    const FIRST_VIDEO = 'src/shine.mp4';
+    
+    function changeMainMedia(mediaSrc) {
+        const container = document.querySelector('.main-image');
+        
+        // 파일 확장자로 비디오인지 이미지인지 판단
+        if (mediaSrc.endsWith('.mp4') || mediaSrc.endsWith('.webm')) {
+            container.innerHTML = `
+                <video id="mainVideo" autoplay muted loop playsinline>
+                    <source src="${mediaSrc}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            `;
+        } else {
+            container.innerHTML = `<img src="${mediaSrc}" alt="Product">`;
+        }
+    }
+    
+    function resetToFirstVideo() {
+        changeMainMedia(FIRST_VIDEO);
+    }
+    
+    // 썸네일 비디오 호버 시 재생
+    window.addEventListener('load', function() {
+        resetToFirstVideo();
+        
+        const thumbnailVideo = document.querySelector('.thumbnail-video video');
+        if (thumbnailVideo) {
+            const thumbnailDiv = document.querySelector('.thumbnail-video');
+            thumbnailDiv.addEventListener('mouseenter', () => {
+                thumbnailVideo.play();
+            });
+            thumbnailDiv.addEventListener('mouseleave', () => {
+                thumbnailVideo.pause();
+                thumbnailVideo.currentTime = 0;
+            });
+        }
+    });
+</script>
+</body>
+</html>
